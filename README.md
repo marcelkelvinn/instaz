@@ -1,6 +1,6 @@
-# 📸 InstaZ - Photo Sharing App
+# 📸 Snaploop - Photo Sharing App
 
-InstaZ adalah aplikasi berbagi foto yang memungkinkan pengguna untuk mendaftar, login, mengupload foto, dan melihat foto yang diunggah oleh pengguna lain. Aplikasi ini juga memiliki panel admin untuk mengelola pengguna.
+Snaploop adalah aplikasi berbagi foto yang memungkinkan pengguna untuk mendaftar, login, mengupload foto, dan melihat foto yang diunggah oleh pengguna lain. Aplikasi ini juga memiliki panel admin untuk mengelola pengguna.
 
 ## 🚀 Fitur Utama
 

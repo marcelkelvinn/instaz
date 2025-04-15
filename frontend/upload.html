@@ -2,19 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Upload Foto</title>
+  <title>Upload Foto | SnapLoop</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Upload Foto</h2>
+  <div class="form-container">
+    <h2>Upload Foto</h2>
 
-  <form id="uploadForm" enctype="multipart/form-data">
-    <input type="file" name="photo" accept="image/*" required>
-    <button type="submit">Upload</button>
-  </form>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" name="photo" accept="image/*" required>
+      <button type="submit">Upload</button>
+    </form>
 
-  <br>
-  <a href="profile.html">Kembali ke Profil</a>
+    <br>
+    <a href="profile.html" class="back-link">Kembali ke Profil</a>
+  </div>
 
   <script>
     const token = localStorage.getItem("token");
