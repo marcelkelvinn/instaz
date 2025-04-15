@@ -28,8 +28,9 @@ InstaZ adalah aplikasi berbagi foto yang memungkinkan pengguna untuk mendaftar, 
 - Pastikan kamu sudah memiliki backend yang berjalan. Backend dapat ditemukan di folder `backend/` pada repository ini.
 - Untuk menjalankan backend, ikuti langkah-langkah berikut:
 
-``bash
+
 # Install dependencies
+``bash
 cd backend
 npm install
 
