@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profil Saya</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Profil Saya</h2>
+  <div id="userInfo"></div>
+
+  <h3>Foto Saya</h3>
+  <div id="photoGallery"></div>
+
+  <br>
+  <a href="upload.html">Upload Foto Baru</a>
+  <br><br>
+  <button id="logoutBtn">Logout</button>
+
+  <script src="script.js"></script>
+  <script>
+    const token = localStorage.getItem("token");
+    if (!token) window.location.href = "index.html";
+
+    // Ambil info user
+    fetch("http://localhost:5000/users/me", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(res => res.json())
+    .then(user => {
+      document.getElementById("userInfo").innerHTML = `
+        <p><strong>Username:</strong> ${user.username}</p>
+        <p><strong>Role:</strong> ${user.role}</p>
+      `;
+
+      // Ambil foto user
+      fetch(`http://localhost:5000/photos/${user.id}`)
+        .then(res => res.json())
+        .then(photos => {
+          const gallery = document.getElementById("photoGallery");
+          if (photos.length === 0) {
+            gallery.innerHTML = "<p>Belum ada foto.</p>";
+          } else {
+            photos.forEach(photo => {
+              const img = document.createElement("img");
+              img.src = `http://localhost:5000/${photo.url}`;
+              img.style.width = "150px";
+              img.style.margin = "10px";
+              gallery.appendChild(img);
+            });
+          }
+        });
+    });
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
