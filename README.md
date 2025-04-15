@@ -30,34 +30,36 @@ InstaZ adalah aplikasi berbagi foto yang memungkinkan pengguna untuk mendaftar, 
 
 
 # Install dependencies
-``bash
+```
 cd backend
 npm install
-
+```
 # Pastikan kamu sudah mengonfigurasi `.env` dengan benar (lihat di bawah)
 # Menjalankan server backend
+```
 npm start
-
+```
 ### 2. Konfigurasi Backend
 
 Setelah menginstall dependencies, kamu perlu mengonfigurasi file `.env` di folder `backend/`. Buat file `.env` di dalam folder `backend/` dengan konfigurasi berikut:
 
-```env
+```
 DB_HOST=your-rds-endpoint.amazonaws.com   # Endpoint untuk RDS MySQL di AWS
 DB_USER=your-database-username           # Username untuk database
 DB_PASS=your-database-password           # Password untuk database
 DB_NAME=your-database-name               # Nama database yang digunakan
 JWT_SECRET=your-jwt-secret               # Secret key untuk JWT
 PORT=5000                                # Port untuk menjalankan server (bisa diganti sesuai kebutuhan)
+```
 
 ### 3. Menjalankan Backend
 
 Setelah mengonfigurasi file `.env` dan memastikan pengaturan AWS RDS dan EC2 sudah benar, jalankan server backend menggunakan perintah berikut:
 
-```bash
+```
 cd backend
 npm start
-
+```
 ### 4. Setup Frontend
 
 Untuk menjalankan frontend, ikuti langkah-langkah berikut:
@@ -65,17 +67,17 @@ Untuk menjalankan frontend, ikuti langkah-langkah berikut:
 #### Instalasi Dependencies
 Masuk ke folder `frontend/` dan install dependencies yang dibutuhkan:
 
-```bash
+```
 cd frontend
 npm install
-
+```
 ### 5. Menjalankan Frontend
 
 Jalankan server frontend menggunakan perintah berikut:
 
-```bash
+```
 npm run serve
-
+```
 ## 🌐 Cara Menggunakan Aplikasi
 
 ### 1. Pendaftaran Pengguna
