@@ -28,10 +28,15 @@
   </div>
 
   <script>
-    //const token = localStorage.getItem("token");
-    //if (!token) window.location.href = "index.html";
+    const BASE_URL = "http://54.83.131.137:5000";
+    const token = localStorage.getItem("token");
 
-    fetch("http://localhost:5000/users/me", {
+    if (!token) {
+      alert("Silakan login terlebih dahulu.");
+      window.location.href = "index.html";
+    }
+
+    fetch(`${BASE_URL}/users/me`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => res.json())
@@ -42,11 +47,11 @@
 
       // Kalau suatu saat user punya avatar, bisa update logic ini
       if (user.profilePhotoUrl) {
-        document.getElementById("profilePic").src = `http://localhost:5000/${user.profilePhotoUrl}`;
+        document.getElementById("profilePic").src = `${BASE_URL}/${user.profilePhotoUrl}`;
       }
 
       // Ambil foto user
-      fetch(`http://localhost:5000/photos/${user.id}`)
+      fetch(`${BASE_URL}/photos/${user.id}`)
         .then(res => res.json())
         .then(photos => {
           const gallery = document.getElementById("photoGallery");
@@ -55,7 +60,7 @@
           } else {
             photos.forEach(photo => {
               const img = document.createElement("img");
-              img.src = `http://localhost:5000/${photo.url}`;
+              img.src = `${BASE_URL}/${photo.url}`;
               img.style.width = "150px";
               img.style.margin = "10px";
               img.style.borderRadius = "8px";
