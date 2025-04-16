@@ -196,3 +196,23 @@ input:focus {
 }
 
 /* Additional specific styles for the admin interface if needed */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+#profilePic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffd200;
+}
+
+#profileUsername {
+  font-size: 22px;
+  color: #333;
+  margin: 0;
+}

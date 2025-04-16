@@ -2,36 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Profil Saya</title>
+  <title>Profil Saya | SnapLoop</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Profil Saya</h2>
-  <div id="userInfo"></div>
+  <div class="form-container">
+    <img src="assets/images/logo.png" alt="SnapLoop Logo" class="logo" />
+    <h2>My Profile</h2><br>
 
-  <h3>Foto Saya</h3>
-  <div id="photoGallery"></div>
+    <div id="userProfile" class="profile-header">
+      <img src="assets/images/no-profile.jpg" alt="Foto Profil" id="profilePic">
+      <div>
+        <h3 id="profileUsername">@username</h3>
+        <p>Role: <span id="profileRole"></span></p>
+      </div>
+    </div>
 
-  <br>
-  <a href="upload.html">Upload Foto Baru</a>
-  <br><br>
-  <button id="logoutBtn">Logout</button>
+    <h3>Foto Saya</h3>
+    <div id="photoGallery" class="user-gallery"></div>
 
-  <script src="script.js"></script>
+    <br>
+    <a href="upload.html" class="yellow-btn">Upload Foto Baru</a>
+    <br><br>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
   <script>
-    const token = localStorage.getItem("token");
-    if (!token) window.location.href = "index.html";
+    //const token = localStorage.getItem("token");
+    //if (!token) window.location.href = "index.html";
 
-    // Ambil info user
     fetch("http://localhost:5000/users/me", {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => res.json())
     .then(user => {
-      document.getElementById("userInfo").innerHTML = `
-        <p><strong>Username:</strong> ${user.username}</p>
-        <p><strong>Role:</strong> ${user.role}</p>
-      `;
+      // Update info profil
+      document.getElementById("profileUsername").textContent = `@${user.username}`;
+      document.getElementById("profileRole").textContent = user.role;
+
+      // Kalau suatu saat user punya avatar, bisa update logic ini
+      if (user.profilePhotoUrl) {
+        document.getElementById("profilePic").src = `http://localhost:5000/${user.profilePhotoUrl}`;
+      }
 
       // Ambil foto user
       fetch(`http://localhost:5000/photos/${user.id}`)
@@ -46,13 +58,13 @@
               img.src = `http://localhost:5000/${photo.url}`;
               img.style.width = "150px";
               img.style.margin = "10px";
+              img.style.borderRadius = "8px";
               gallery.appendChild(img);
             });
           }
         });
     });
 
-    // Logout
     document.getElementById("logoutBtn").addEventListener("click", () => {
       localStorage.removeItem("token");
       window.location.href = "index.html";
