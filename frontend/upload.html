@@ -20,15 +20,15 @@
   </div>
 
   <script>
-    const token = localStorage.getItem("token");
-    if (!token) window.location.href = "index.html";
+    //const token = localStorage.getItem("token");
+    //if (!token) window.location.href = "index.html";
 
     document.getElementById("uploadForm").addEventListener("submit", async e => {
       e.preventDefault();
 
       const formData = new FormData(e.target);
 
-      const res = await fetch("http://54.83.131.137:5000/upload", {
+      const res = await fetch("http://54.83.131.137/upload", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`
