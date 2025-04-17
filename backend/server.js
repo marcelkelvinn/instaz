@@ -10,7 +10,9 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('uploads')); // Untuk menyajikan foto yang diunggah
+
+// Ganti bagian ini agar folder tempat upload file bisa diakses publik
+app.use('/photos', express.static('/home/ec2-user/snaploop/photos'));
 
 // Koneksi ke database RDS
 const db = mysql.createConnection({
@@ -45,7 +47,7 @@ app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     db.query('INSERT INTO users (username, password, role) VALUES (?, ?, ?)', [username, hashedPassword, role], (err, result) => {
         if (err) return res.status(500).send(err);
-        res.status(201).send('User  registered successfully!');
+        res.status(201).send('User registered successfully!');
     });
 });
 
@@ -64,7 +66,7 @@ app.post('/login', (req, res) => {
                 res.status(401).send('Invalid credentials');
             }
         } else {
-            res.status(404).send('User  not found');
+            res.status(404).send('User not found');
         }
     });
 });
@@ -72,7 +74,7 @@ app.post('/login', (req, res) => {
 // Konfigurasi multer untuk upload foto
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, '/home/ec2-user/snaploop/photos');
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
@@ -84,7 +86,7 @@ const upload = multer({ storage });
 // Rute untuk mengunggah foto
 app.post('/upload', authenticateJWT, upload.single('photo'), (req, res) => {
     const userId = req.user.id;
-    const photoUrl = req.file.path;
+    const photoUrl = `http://${process.env.PUBLIC_IP}/photos/${req.file.filename}`; // Sesuaikan IP publik EC2 kamu
     const timestamp = new Date();
     db.query('INSERT INTO photos (user_id, url, timestamp) VALUES (?, ?, ?)', [userId, photoUrl, timestamp], (err, result) => {
         if (err) return res.status(500).send(err);
@@ -118,7 +120,7 @@ app.put('/users/:id', authenticateJWT, (req, res) => {
     const query = 'UPDATE users SET username = ?, password = ? WHERE id = ?';
     db.query(query, [username, hashedPassword, userId], (err, result) => {
         if (err) return res.status(500).send(err);
-        res.send('User  information updated successfully!');
+        res.send('User information updated successfully!');
     });
 });
 
@@ -129,7 +131,7 @@ app.delete('/users/:id', authenticateJWT, (req, res) => {
     const userId = req.params.id;
     db.query('DELETE FROM users WHERE id = ?', [userId], (err, result) => {
         if (err) return res.status(500).send(err);
-        res.send('User  deleted successfully!');
+        res.send('User deleted successfully!');
     });
 });
 

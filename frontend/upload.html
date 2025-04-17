@@ -10,8 +10,9 @@
     <img src="assets/images/logo.png" alt="SnapLoop Logo" class="logo" />
     <h2>Upload Foto</h2><br>
 
-    <form id="uploadForm" enctype="multipart/form-data">
-      <input type="file" name="photo" accept="image/*" required>
+    <form action="http://your-ec2-ip/upload" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="user_id" value="1" />
+      <input type="file" name="photo" />
       <button type="submit">Upload</button>
     </form>
 

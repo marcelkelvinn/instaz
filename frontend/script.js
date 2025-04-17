@@ -1,3 +1,5 @@
+script.js
+
 const BASE_URL = "http://54.83.131.137";
 
 // Helper: Ambil token dari localStorage
@@ -35,32 +37,17 @@ async function ensureAdmin() {
   return user;
 }
 
-// Helper untuk fetch dengan token otomatis
-async function fetchWithAuth(url, options = {}) {
-  return fetch(url, {
-    ...options,
-    headers: {
-      ...(options.headers || {}),
-      Authorization: `Bearer ${getToken()}`,
-      "Content-Type": "application/json"
-    }
-  });
-}
-
 // Ambil data user yang sedang login
 async function fetchCurrentUser() {
-  try {
-    const res = await fetchWithAuth(`$BASE_URL}/users/me`);
-    if (!res.ok) {
-      const error = await res.text();
-      alert("Sesi login habis atau tidak valid. Silakan login ulang.\n" + error);
-      logout();
+  const res = await fetch(`${BASE_URL}/users/me`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`
     }
-    return await res.json();
-  } catch (err) {
-    alert("Gagal mengambil data user. Coba lagi nanti.");
+  });
+  if (!res.ok) {
     logout();
   }
+  return await res.json();
 }
 
 // ---------------------- LOGIN ----------------------
@@ -69,16 +56,9 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
   const form = e.target;
   const username = form.username.value;
   const password = form.password.value;
-  const button = form.querySelector("button");
 
-  if (!username || !password) {
-    alert("Username dan password tidak boleh kosong.");
-    return;
-  }
-
-  button.disabled = true;
   try {
-    const res = await fetch(`$BASE_URL}/login`, {
+    const res = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password })
@@ -91,8 +71,6 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
     window.location.href = "profile.html";
   } catch (err) {
     alert("Login gagal. Periksa username dan password.");
-  } finally {
-    button.disabled = false;
   }
 });
 
@@ -103,16 +81,9 @@ document.getElementById("registerForm")?.addEventListener("submit", async (e) =>
   const username = form.username.value;
   const password = form.password.value;
   const role = form.role?.value || "user";
-  const button = form.querySelector("button");
 
-  if (!username || !password) {
-    alert("Username dan password tidak boleh kosong.");
-    return;
-  }
-
-  button.disabled = true;
   try {
-    const res = await fetch(`$BASE_URL}/register`, {
+    const res = await fetch(`${BASE_URL}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password, role })
@@ -127,8 +98,6 @@ document.getElementById("registerForm")?.addEventListener("submit", async (e) =>
     window.location.href = "index.html";
   } catch (err) {
     alert("Gagal registrasi: " + err.message);
-  } finally {
-    button.disabled = false;
   }
 });
 
