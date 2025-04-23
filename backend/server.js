@@ -10,7 +10,10 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static('uploads')); // Untuk menyajikan foto yang diunggah
+//app.use('/uploads', express.static('uploads')); // Untuk menyajikan foto yang diunggah
+
+// Ganti bagian ini agar folder tempat upload file bisa diakses publik
+app.use('/uploads', express.static('/home/ec2-user/snaploop/uploads'));
 
 // Koneksi ke database RDS
 const db = mysql.createConnection({
@@ -72,7 +75,7 @@ app.post('/login', (req, res) => {
 // Konfigurasi multer untuk upload foto
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, '/home/ec2-user/snaploop/uploads');
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
@@ -84,7 +87,7 @@ const upload = multer({ storage });
 // Rute untuk mengunggah foto
 app.post('/upload', authenticateJWT, upload.single('photo'), (req, res) => {
     const userId = req.user.id;
-    const photoUrl = req.file.path;
+    const photoUrl = `http://${process.env.PUBLIC_IP}/uploads/${req.file.filename}`;
     const timestamp = new Date();
     db.query('INSERT INTO photos (user_id, url, timestamp) VALUES (?, ?, ?)', [userId, photoUrl, timestamp], (err, result) => {
         if (err) return res.status(500).send(err);

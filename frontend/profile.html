@@ -18,12 +18,14 @@
   <button id="logoutBtn">Logout</button>
 
   <script src="script.js"></script>
+
   <script>
+    const BASE_URL = "http://54.83.131.137";
     const token = localStorage.getItem("token");
     if (!token) window.location.href = "index.html";
 
     // Ambil info user
-    fetch("http://localhost:5000/users/me", {
+    fetch(`${BASE_URL}/users/me`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => res.json())
@@ -34,7 +36,7 @@
       `;
 
       // Ambil foto user
-      fetch(`http://localhost:5000/photos/${user.id}`)
+      fetch(`${BASE_URL}/photos/${user.id}`)
         .then(res => res.json())
         .then(photos => {
           const gallery = document.getElementById("photoGallery");
@@ -43,7 +45,7 @@
           } else {
             photos.forEach(photo => {
               const img = document.createElement("img");
-              img.src = `http://localhost:5000/${photo.url}`;
+              img.src = `${BASE_URL}/${photo.url}`;
               img.style.width = "150px";
               img.style.margin = "10px";
               gallery.appendChild(img);

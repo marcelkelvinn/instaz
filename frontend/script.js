@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://54.83.131.137";
 
 // Helper: Ambil token dari localStorage
 function getToken() {

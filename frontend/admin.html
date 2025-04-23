@@ -28,11 +28,12 @@
   <a href="profile.html">Kembali ke Profil</a>
 
   <script>
+    const BASE_URL = "http://54.83.131.137";
     const token = localStorage.getItem("token");
     if (!token) window.location.href = "index.html";
 
     // Cek apakah user adalah admin
-    fetch("http://localhost:5000/users/me", {
+    fetch(`${BASE_URL}/users/me`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => res.json())
@@ -47,7 +48,7 @@
 
     // Fungsi untuk ambil dan tampilkan semua user
     function loadUsers() {
-      fetch("http://localhost:5000/users", {
+      fetch(`${BASE_URL}/users`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(res => res.json())
@@ -84,7 +85,7 @@
         password: form.password.value,
         role: form.role.value
       };
-      const res = await fetch("http://localhost:5000/register", {
+      const res = await fetch(`${BASE_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +108,7 @@
         username: form.username.value,
         password: form.password.value || undefined
       };
-      const res = await fetch(`http://localhost:5000/users/${id}`, {
+      const res = await fetch(`${BASE_URL}/users/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -127,7 +128,7 @@
     // Hapus user
     async function deleteUser(id) {
       if (!confirm("Yakin ingin menghapus user ini?")) return;
-      const res = await fetch(`http://localhost:5000/users/${id}`, {
+      const res = await fetch(`${BASE_URL}/users/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`
