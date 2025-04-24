@@ -13,7 +13,7 @@ app.use(express.json());
 //app.use('/uploads', express.static('uploads')); // Untuk menyajikan foto yang diunggah
 
 // Ganti bagian ini agar folder tempat upload file bisa diakses publik
-app.use('/uploads', express.static('/home/ec2-user/snaploop/uploads'));
+app.use('/uploads', express.static('/home/ubuntu/instaz/backend/uploads'));
 
 // Koneksi ke database RDS
 const db = mysql.createConnection({
@@ -75,7 +75,7 @@ app.post('/login', (req, res) => {
 // Konfigurasi multer untuk upload foto
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '/home/ec2-user/snaploop/uploads');
+        cb(null, '/home/ubuntu/instaz/backend/uploads');
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
