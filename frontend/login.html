@@ -2,17 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
+  <title>Login | SnapLoop</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Login</h2>
-  <form id="loginForm">
-    <input type="text" placeholder="Username" name="username" required>
-    <input type="password" placeholder="Password" name="password" required>
-    <button type="submit">Login</button>
-  </form>
-  <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+  <div class="form-container">
+    <img src="assets/images/logo.png" alt="SnapLoop Logo" class="logo" />
+    <h2>Login to SnapLoop</h2>
+    <p>Login to your SnapLoop account</p>
+
+    <form id="loginForm">
+      <input type="text" placeholder="Username" name="username" required>
+      <input type="password" placeholder="Password" name="password" required>
+      <button type="submit">Login</button>
+    </form>
+
+    <p class="switch-link">Don’t have an account? <a href="register.html">Register</a></p>
+  </div>
 
   <script src="script.js"></script>
 </body>

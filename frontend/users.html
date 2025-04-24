@@ -2,19 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Semua Pengguna</title>
+  <title>Semua Pengguna | SnapLoop</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Profil Publik Pengguna</h2>
+  <div class="form-container">
+    <h2>Profil Publik Pengguna</h2>
 
-  <div id="userList"></div>
+    <div id="userList"></div>
 
-  <br>
-  <a href="index.html">Kembali ke Login</a>
+    <br>
+    <a href="index.html" class="back-link">Kembali ke Login</a>
+  </div>
 
   <script>
     const BASE_URL = "http://54.83.131.137";
+
     // Ambil semua user
     fetch(`${BASE_URL}/users`, {
       headers: {
@@ -31,7 +34,11 @@
       const container = document.getElementById("userList");
       users.forEach(user => {
         const userSection = document.createElement("div");
-        userSection.innerHTML = `<h3>${user.username} (${user.role})</h3><div id="photos-${user.id}" class="user-gallery"></div>`;
+        userSection.classList.add("user-section");
+        userSection.innerHTML = `
+          <h3>${user.username} (${user.role})</h3>
+          <div id="photos-${user.id}" class="user-gallery"></div>
+        `;
         container.appendChild(userSection);
 
         // Ambil foto untuk user ini

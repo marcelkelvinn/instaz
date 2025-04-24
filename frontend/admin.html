@@ -2,30 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Panel</title>
+  <title>Admin Panel | SnapLoop</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Admin Panel</h2>
+  <div class="form-container">
+    <h2>Admin Panel</h2>
 
-  <div id="adminSection">
-    <h3>Tambah User Baru</h3>
-    <form id="addUserForm">
-      <input type="text" name="username" placeholder="Username" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <select name="role">
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
-      </select>
-      <button type="submit">Tambah</button>
-    </form>
+    <div id="adminSection">
+      <h3>Tambah User Baru</h3>
+      <form id="addUserForm">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <select name="role">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+        <button type="submit">Tambah</button>
+      </form>
 
-    <h3>Daftar Pengguna</h3>
-    <div id="userList"></div>
+      <h3>Daftar Pengguna</h3>
+      <div id="userList"></div>
+    </div>
+
+    <br>
+    <a href="profile.html">Kembali ke Profil</a>
   </div>
-
-  <br>
-  <a href="profile.html">Kembali ke Profil</a>
 
   <script>
     const BASE_URL = "http://54.83.131.137";
